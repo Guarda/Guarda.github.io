@@ -1,0 +1,73 @@
+<div class="table-spinner-container">
+    <div class="spinner-loading-shade" *ngIf="dataSource.cargandoRegistro | async">
+        <mat-spinner color="accent"></mat-spinner>
+    </div>
+
+    <mat-table [dataSource]="dataSource" matSort matSortDirection="asc" matSortDisableClear>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+
+        <ng-container matColumnDef="idServicio">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> No. </mat-header-cell>
+            <mat-cell *matCellDef="let servicio" data-label="No:"> {{servicio.idServicio}} </mat-cell>
+        </ng-container>
+
+            <!-- Aca debe de hacer el MATCH las columnas que estan en el TS con lo que se va a mostrar -->
+            <ng-container matColumnDef="nombreServicio">
+            <!-- Estos son los nombres de la columna -->
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Nombre Servicio </mat-header-cell>
+            <!-- Aca debe de hacer el MATCH las columnas que estan en el TS con lo que se va a mostrar -->
+            <mat-cell *matCellDef="let servicio" data-label="Nombre:"> {{servicio.nombreServicio}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcionServicio">
+            <!-- Estos son los nombres de la columna -->
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Precio </mat-header-cell>
+            <mat-cell *matCellDef="let servicio" data-label="descripcionServicio"> {{servicio.descripcionServicio}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="precio">
+            <!-- Estos son los nombres de la columna -->
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Precio </mat-header-cell>
+            <mat-cell *matCellDef="let servicio" data-label="Precio:"> {{servicio.precio}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="plazo">
+            <!-- Estos son los nombres de la columna -->
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Plazo </mat-header-cell>
+            <mat-cell *matCellDef="let servicio" data-label="Plazo:"> {{servicio.plazo}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+            <!-- Estos son los nombres de la columna -->
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let servicio" data-label="Estado:"> {{servicio.estado}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="accion">
+            <!-- Estos son los nombres de la columna -->
+            <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
+
+            <mat-cell *matCellDef="let servicio">
+
+                <button mat-icon-button (click)="editar(servicio.idServicio)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button (click)="eliminar(servicio.idServicio)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+            </mat-cell>
+        </ng-container>
+
+    </mat-table>
+
+    <mat-paginator style="margin-top: 20px;" [pageSize]="10" [length]="dataSource.cantidadRegistro | async"
+        [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+
+</div>
